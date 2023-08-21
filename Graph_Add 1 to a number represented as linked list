@@ -1,0 +1,56 @@
+
+/*
+class Node{
+    int data;
+    Node next;
+    
+    Node(int x){
+        data = x;
+        next = null;
+    }
+} 
+*/
+
+class Solution
+{
+    public static Node addOne(Node head) 
+    { 
+        //code here.
+        Node temp_head =reverseLinkedList(head), prev = null;
+        Node buffer = temp_head;
+        int carry = 0;
+        while(temp_head != null){
+            if(temp_head.data < 9){
+                temp_head.data = temp_head.data+1;
+                carry = 0;
+                break;
+            }else{
+                temp_head.data = 0;
+                carry = 1;
+            }
+            prev = temp_head;
+            temp_head= temp_head.next;
+        }
+        if(carry == 1){
+            Node carryNode = new Node(carry);
+            carryNode.next = null;
+            prev.next = carryNode;
+        }
+        return reverseLinkedList(buffer);
+    }
+    public static Node reverseLinkedList(Node head)
+    {
+        // Write your code here.
+        Node prev=null;
+        Node curr=head;
+        while(curr!=null)
+        {
+            Node temp=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=temp;
+        }
+        return prev;
+    }
+    
+}
