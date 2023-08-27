@@ -1,0 +1,81 @@
+/****************************************************************
+
+ Following is the class structure of the Node class:
+
+ class Node {
+     public int data;
+     public Node next;
+
+     Node()
+     {
+         this.data = 0;
+         this.next = null;
+     }
+
+     Node(int data)
+     {
+         this.data = data;
+         this.next = null;
+     }
+
+     Node(int data, Node next)
+     {
+         this.data = data;
+         this.next = next;
+     }
+ };
+
+ class Queue{
+     Node front;
+     Node rear;
+     void push(){};
+     Queue() {
+         front = null;
+         rear = null;
+     }
+ }
+
+ *****************************************************************/
+
+public class Solution extends Queue{
+    public boolean isEmpty(){
+
+        return (front==null && rear==null);
+
+    }
+    public void push(int x) {
+        // Write Your Code Here
+        Node newnode=new Node(x);
+        if(front==null){
+        front=rear=newnode;
+        return;
+        }
+        rear.next=newnode;
+        rear=newnode;
+    }
+
+    public int pop() {
+        // Write Your Code Here
+        if(isEmpty()){
+
+            return -1;
+
+        }
+
+        int val=front.data;
+
+        if(front==rear){
+
+            front=rear=null;
+
+        }
+
+        else{
+
+            front=front.next;
+
+        }
+
+        return val;
+    }
+}
