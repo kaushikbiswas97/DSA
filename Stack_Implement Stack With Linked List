@@ -1,0 +1,97 @@
+/****************************************************************
+
+ Following is the class structure of the Node class:
+
+ static class Node
+ {
+     int data;
+     Node next;
+     Node()
+     {
+         this.data = 0;
+         this.next = null;
+     }
+     Node(int data)
+     {
+         this.data = data;
+         this.next = null;
+     }
+     Node(int data, Node next)
+     {
+         this.data = data;
+         this.next = next;
+     }
+ };
+
+
+ *****************************************************************/
+public class Solution {
+    static class Stack {
+        //Write your code here
+        int n;
+        Node head;
+        Node tail;
+        Stack()
+        {
+            //Write your code here
+            head=new Node();
+            tail=head;
+            n=0;
+        }
+
+        int getSize()
+        {
+            //Write your code here
+            return n;
+        }
+
+        boolean isEmpty()
+        {
+            //Write your code here
+            if(n==0)return true;
+            return false;
+        }
+
+        void push(int data)
+        {
+            //Write your code here
+            if(head==null){
+                head.data=data;
+            }
+            else{
+                Node temp=new Node(data);
+                tail.next=temp;
+                tail=tail.next;
+            }
+            n++;
+
+        }
+
+        void pop()
+        {
+            //Write your code here
+            if(n==0)return;
+            if(head.next==null){
+                head=null;
+                tail=head;
+                n--;
+            }
+            Node temp=head;
+            while(temp.next!=tail && temp.next.next!=null)
+            {
+                temp=temp.next;
+            }
+            temp.next=null;
+            tail=temp;
+            n--;
+            
+        }
+
+        int getTop()
+        {
+            //Write your code here
+            if(n==0)return -1;
+            return tail.data;
+        }
+    }
+}
