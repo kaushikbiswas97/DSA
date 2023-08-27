@@ -1,0 +1,100 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+
+    static class MinStack {
+        Stack<Integer> stk;
+        int min;
+        // Constructor
+        MinStack() {
+            // Write your code here.
+            stk = new Stack<>();
+            min = -1;
+        }
+
+        // Function to add another element equal to num at the top of stack.
+        void push(int num) {
+            // Write your code here.
+            if (stk.isEmpty())
+
+                min = num;
+
+            stk.push(num);
+
+            if (num < min)
+
+                min = num;
+        }
+
+        // Function to remove the top element of the stack.
+        int pop() {
+            // Write your code here.
+            if (stk.isEmpty())
+
+                return -1;
+
+ 
+
+            if (stk.peek() == min) {
+
+                int element = stk.pop();
+
+                if (stk.isEmpty()) {
+
+                    min = -1;
+
+                    return element;
+
+                }
+
+                min = Integer.MAX_VALUE;
+
+                Stack<Integer> tmp = new Stack<>();
+
+                while (!stk.isEmpty()) {
+
+                    int ele = stk.pop();
+
+                    if (ele < min)
+
+                        min = ele;
+
+                    tmp.push(ele);
+
+                }
+
+                while(!tmp.isEmpty()){
+
+                    stk.push(tmp.pop());
+
+                }
+
+                return element;
+
+            } else {
+
+                return stk.pop();
+
+            }
+        }
+
+        // Function to return the top element of stack if it is present. Otherwise
+        // return -1.
+        int top() {
+            // Write your code here.
+            if (stk.isEmpty())
+
+                return -1;
+
+            return stk.peek();
+        }
+
+        // Function to return minimum element of stack if it is present. Otherwise
+        // return -1.
+        int getMin() {
+            // Write your code here.
+             return min;
+        }
+    }
+}
