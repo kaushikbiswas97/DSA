@@ -1,0 +1,31 @@
+import java.util.*;
+public class Solution {
+    static boolean operator(char ch){
+        if(ch == '+' || ch == '-' || ch == '*' || ch == '/'){
+            return true;
+        }
+        return false;
+    }
+    public static String postfixToPrefix(String exp) {
+        // Write your code here
+        Stack<String> st = new Stack<>();
+        StringBuilder ans = new StringBuilder();
+        for(int i=0;i<exp.length();i++){
+            char ch = exp.charAt(i);
+            StringBuilder sb = new StringBuilder();
+            if(ch >='a' && ch <='z'){
+                st.push(String.valueOf(ch));
+            }
+            else if(operator(ch)){
+                sb.append(String.valueOf(ch));
+                String o1 = st.pop();
+                String o2 = st.pop();
+                sb.append(o2);
+                sb.append(o1);
+                st.push(String.valueOf(sb));
+            }
+            ans = sb;
+    }
+    return ans.toString();
+    }
+}
