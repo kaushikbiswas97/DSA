@@ -1,0 +1,41 @@
+import java.util.*;
+
+public class Solution {
+    static boolean isOperand(char ch)
+    {
+
+        return ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9'));
+    }
+    public static String postToInfix(String exp) {
+        // Write your code here.
+         Stack<String> st = new Stack<>();
+
+        for(char ch : exp.toCharArray())
+
+        {
+
+            if(isOperand(ch))
+
+                st.push(Character.toString(ch));
+
+            else
+
+            {
+
+                StringBuilder temp = new StringBuilder();
+
+                temp.append(st.pop());
+
+                temp.insert(0, Character.toString(ch));
+
+                temp.insert(0, st.pop());
+
+                st.push(temp.toString());
+
+            }
+
+        }
+
+        return st.peek();
+    }
+}
