@@ -1,0 +1,61 @@
+import java.util.*;
+public class Solution {
+    public static boolean isOperand(char ch) {
+
+        if (ch - 'a' >= 0 && ch - 'a' <= 25) {
+        return true;
+        } else if (ch - '0' >= 0 && ch - '0' <= 9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public static String infixToPostfix(String exp) {
+        // Write your code here
+        StringBuilder sb= new StringBuilder();
+        Stack<Character> st = new Stack<>();
+        HashMap<Character,Integer> map=new HashMap<>();
+        map.put('^',3);
+        map.put('*',2);
+        map.put('/',2);
+        map.put('+',1);
+        map.put('-',1);
+        map.put('(',0);
+        map.put(')',0);
+        for(int i=0;i<exp.length();i++)
+        {
+            char ch=exp.charAt(i);
+
+            if(isOperand(ch))
+            {
+                sb.append(ch);
+            }
+            else if(ch==')')
+            {
+                while(st.peek()!='('){
+                    sb.append(st.peek());
+                    st.pop();
+                }
+                st.pop();
+            }
+            else if(ch=='('){
+                st.push(ch);
+            }
+            else
+            {
+                while(!st.isEmpty() && map.get(st.peek())>=map.get(ch)){
+                    sb.append(st.peek());
+                    st.pop();
+                }
+                st.push(ch);
+            }
+
+        }
+        while(!st.isEmpty())
+        {
+            sb.append(st.peek());
+            st.pop();
+        }
+        return sb.toString();
+    }
+}
