@@ -1,0 +1,23 @@
+import java.util.*;
+public class Solution {
+    public static String preToPost(String s) {
+        // Write Your Code Here
+        Stack<String> st = new Stack<>();
+        StringBuilder ans = new StringBuilder();
+        for(int i=s.length()-1;i>=0;i--){
+            char ch = s.charAt(i);
+            StringBuilder sb = new StringBuilder();
+            if(ch >= 'A' && ch <='Z'){
+                st.push(String.valueOf(ch));
+            }
+            else{
+                sb.append(st.pop());
+                sb.append(st.pop());
+                sb.append(ch);
+                st.push(String.valueOf(sb));
+            }
+            ans = sb;
+        }
+        return ans.toString();
+    }
+}
