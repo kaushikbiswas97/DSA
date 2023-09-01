@@ -1,0 +1,49 @@
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        int ans=0;
+        long mod=(long)1000000007;
+        int n=arr.length;
+        int[] right_small=new int[n];
+        int[] left_small=new int[n];
+        Stack<Integer> st1=new Stack<>();
+        Stack<Integer> st2=new Stack<>();
+
+        for(int i=0;i<n;i++)
+        {
+            right_small[i]=n-i-1;
+            left_small[i]=i;
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            while(!st1.isEmpty() && arr[st1.peek()]>arr[i]){
+                right_small[st1.peek()]=i-st1.peek()-1;
+                st1.pop();
+            }
+            st1.push(i);
+        }
+        for(int i=n-1;i>=0;i--)
+        {
+            while(!st2.isEmpty() && arr[st2.peek()]>=arr[i]){
+                left_small[st2.peek()]=st2.peek()-i-1;
+                st2.pop();
+            }
+            st2.push(i);
+        }
+
+        for(int i=0;i<n;i++)
+        {
+            ans+=(arr[i]*(right_small[i]+1)*(left_small[i]+1))%mod;
+        }
+        // for(int i=0;i<n;i++)
+        // {
+        //     int min=arr[i];
+        //     for(int j=i;j<n;j++)
+        //     {
+        //         min=Math.min(min,arr[j]);
+        //         ans+=min;
+        //     }
+        // }
+        return ans%mod;
+    }
+}
