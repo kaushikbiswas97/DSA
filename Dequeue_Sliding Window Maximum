@@ -1,0 +1,38 @@
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int n=nums.length;
+        int ans[]=new int[n-k+1];
+        // for(int i=0;i+k-1<n;i++)
+        // {
+        //     int st=i;
+        //     int end=i+k;
+        //     int max=findMax(nums,st,end);
+        //     ans[st]=max;
+        // }
+        Deque<Integer> q= new ArrayDeque<>();
+        int last=0;
+        for(int i=0;i<n;i++)
+        {   
+            if(!q.isEmpty() && q.peek()==i-k){
+                q.poll();
+            }
+            while(!q.isEmpty() && nums[q.peekLast()]<=nums[i]){
+                q.pollLast();
+            }
+            q.offer(i);
+            if(i>=k-1){
+                ans[last++]=nums[q.peek()];
+            }
+        }
+        return ans;
+    }
+    // public int findMax(int[] arr,int i,int j)
+    // {
+    //     int maxi=Integer.MIN_VALUE;
+    //     for(int k=i;k<j;k++)
+    //     {
+    //         maxi=Math.max(maxi,arr[k]);
+    //     }
+    //     return maxi;
+    // }
+}
