@@ -1,0 +1,39 @@
+public class Solution {
+    public static int subarrayWithSum(int []arr, int k) {
+        // Write your code here
+        // int ans=0;
+        // int n=arr.length;
+        // for(int i=0;i<n;i++)
+        // {
+        //     int sum=arr[i];
+        //     if(sum==k)ans++;
+        //     for(int j=i+1;j<n;j++)
+        //     {
+        //         sum+=arr[j];
+        //         if(sum==k)ans++;
+        //     }
+        // }
+        // return ans;
+        int i=0,j=0;
+        int ans=0,windowcnt=0,sum=0;
+        int n=arr.length;
+        while(j<n)
+        {
+            sum+=arr[j];
+            if(arr[j]==1)windowcnt=0;
+            if(sum>k){
+                sum-=arr[i];
+                i++;
+            }
+            while(sum==k && i<=j)
+            {
+                windowcnt++;
+                sum-=arr[i];
+                i++;
+            }
+            ans+=windowcnt;
+            j++;
+        }
+        return ans;
+    }
+}
