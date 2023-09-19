@@ -1,0 +1,26 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] freq=new int[26];
+        int maxF=0;
+        int maxFC=0;
+        for(char ch:tasks)
+        {
+            freq[ch-'A']++;
+        }
+        for(int it:freq)
+        {
+            if(maxF==it)maxFC++;
+            if(maxF<it){
+                maxF=it;
+                maxFC=1;
+            }
+        }
+        int T=tasks.length;
+        int gap=maxF-1;
+        int gapLen=n-(maxFC-1);
+        int avlslot=gap*gapLen;
+        int avltask=T-(maxF*maxFC);
+        int idle=Math.max(0,avlslot-avltask);
+        return T+idle;
+    }
+}
