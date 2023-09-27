@@ -1,0 +1,33 @@
+
+// Approach:: Atmost(k)-atmost(k-1)
+
+
+import java.util.*;
+public class Solution {
+    public static int atmost(String str,int k)
+    {
+        Map<Character,Integer> map=new HashMap<>();
+        int ans=0;
+        int l=0;
+        for(int r=0;r<str.length();r++)
+        {
+            char ch=str.charAt(r);
+            map.put(ch,map.getOrDefault(ch,0)+1);
+            while(map.size()>k){
+                map.put(str.charAt(l),map.get(str.charAt(l))-1);
+                if(map.get(str.charAt(l))==0){
+                    map.remove(str.charAt(l));
+                }
+                l++;
+            }
+            ans+=r-l+1;
+        }
+        return ans;
+    }
+    public static int countSubStrings(String str, int k) {
+        // Write your code here.
+        return atmost(str,k)-atmost(str,k-1);
+        
+    }
+}
+
