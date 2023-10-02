@@ -1,0 +1,32 @@
+class Solution {
+    public int[] findLPS(String s)
+    {
+        int n=s.length();
+        int[] lps=new int[n];
+        int i = 1;
+        int p= 0;
+        
+        while(i<n){
+            if(s.charAt(i)==s.charAt(p)){
+                lps[i] = p+1;
+                i++;
+                p++;
+            } else {
+                if(p==0){
+                    lps[i]=p;
+                    i++;
+                } else {
+                    p = lps[p-1];
+                }
+            }
+        }
+        return lps;
+    }
+    public String shortestPalindrome(String s) {
+        String temp=s;
+        s=s+"#"+new StringBuilder(s).reverse().toString();
+        int[] lps=findLPS(s);
+        int idx=lps[lps.length-1];
+        return new StringBuilder(temp.substring(idx)).reverse().toString()+temp;
+    }
+}
