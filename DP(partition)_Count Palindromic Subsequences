@@ -1,0 +1,29 @@
+import java.util.*;
+public class Solution {
+    static int mod=1000000007;
+    public static int countPalindromicSubseq(String s) {
+        int n=s.length();
+        int[][] dp=new int[n][n];
+        for(int[] it:dp){
+            Arrays.fill(it,-1);
+        }
+        return solve(0,n-1,s,dp)%mod;
+         
+    }
+    public static int solve(int l,int r,String s,int[][] dp)
+    {
+        //base cases
+
+        if(l>r)return 0;
+
+        if(l==r)return 1;
+
+        if(dp[l][r]!=-1)return dp[l][r];
+
+        if(s.charAt(l)==s.charAt(r)){
+            return dp[l][r]=(1+solve(l+1,r,s,dp)+solve(l,r-1,s,dp))%mod;
+        }
+        return dp[l][r]=(0+solve(l+1,r,s,dp)+solve(l, r-1, s,dp)-solve(l+1, r-1, s,dp))%mod;
+
+    }
+}
