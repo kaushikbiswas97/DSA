@@ -1,0 +1,24 @@
+import java.util.List;
+import java.util.*;
+public class Solution {
+    public static List< String > generateString(int N) {
+        // Write your code here.
+        List<String> ans=new ArrayList<>();
+        return solve(N,"",ans);
+    }
+    public static List<String> solve(int n,String str,List<String> ans)
+    {
+        if(n==0){
+            ans.add(str);
+            return ans;
+        }
+        if(str.isEmpty() || str.charAt(str.length()-1)=='0'){
+            solve(n-1,str+"0",ans);
+            solve(n-1,str+"1",ans);
+        }
+        else{
+            solve(n-1,str+"0",ans);
+        }
+        return ans;
+    }
+}
