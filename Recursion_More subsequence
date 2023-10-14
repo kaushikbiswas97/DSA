@@ -1,0 +1,38 @@
+import java.util.*;
+public class Solution {
+    public static String moreSubsequence(int n, int m, String a, String b) {
+        // Write your code here
+        // List<String> l1=new ArrayList<>();
+        // List<String> l2=new ArrayList<>();
+
+        // solve("",0,n,a,l1);
+        // solve("",0,m,b,l2);
+        // if(l1.size()>=l2.size())return a;
+        // else return b;
+
+        Set<Character> s1=new HashSet<>();
+        Set<Character> s2=new HashSet<>();
+        for(int i=0;i<n;i++)
+        {
+            s1.add(a.charAt(i));
+        }
+        for(int i=0;i<m;i++)
+        {
+            s2.add(b.charAt(i));
+        }
+
+        if(s1.size()==s2.size())return n<m?b:a;
+        else return s1.size()<s2.size()?b:a;
+    }
+
+    // public static void solve(String temp,int i,int n,String s,List<String> l)
+    // {
+    //     if(i==n){
+    //         l.add(temp);
+    //         return;
+    //     }
+
+    //     solve(temp+s.charAt(i),i+1,n,s,l);
+    //     solve(temp,i+1,n,s,l);
+    // }
+}
