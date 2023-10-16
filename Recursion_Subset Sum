@@ -1,0 +1,34 @@
+import java.util.*;
+public class Solution {
+    public static boolean isSubsetPresent(int n, int k,int []a) {
+        // Write your code here
+        // List<List<Integer>> ans=new ArrayList<>();
+        // Map<Long,Integer> map=new HashMap<>();
+        // map.put((long)0,-1);
+        // long sum=0;
+        // for(int i=0;i<n;i++)
+        // {
+        //     sum+=a[i];
+        //     if(map.containsKey(sum-k)){
+        //         ans.add(craeteSubArray(a,map.get(sum-k)+1,i));
+        //     }
+        //     map.put(sum,i);
+        // }
+        // if(ans.size()==0)return false;
+        // return true;
+        boolean[][] dp=new boolean[n+1][k+1];
+        return solve(0,n,k,a,dp);
+    }
+    public static boolean solve(int idx,int n,int sum,int []a,boolean[][] dp)
+    {
+        if(sum==0)return true;
+        if(sum<0 || idx==n)return false;
+        if(dp[idx][sum]!=false)return dp[idx][sum];
+        boolean not=solve(idx+1,n,sum,a,dp);
+        boolean take=false;
+        if(sum>=a[idx]){
+            take=solve(idx+1,n,sum-a[idx],a,dp);
+        }
+        return dp[idx][sum]=not || take;
+    }
+}
