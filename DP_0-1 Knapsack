@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Solution {
+	public static int maxProfit(ArrayList<Integer> values, ArrayList<Integer> weights, int n, int w) {
+		// Write your code here.
+		int[][] dp=new int[n][w+1];
+		for(int it[]:dp)
+        {
+            Arrays.fill(it,-1);
+        }
+		return solve(n-1,w,values,weights,dp);
+	}
+	public static int solve(int idx,int w,ArrayList<Integer> val,ArrayList<Integer> wei,int[][] dp)
+	{
+		//base case
+		if(w<0)return 0;
+        if(idx==0){
+			if(w>=wei.get(0)) return val.get(0);
+			else return 0;
+		}
+		if(dp[idx][w]!=-1)return dp[idx][w];
+		int not=solve(idx-1,w,val,wei,dp);
+		int take=Integer.MIN_VALUE;
+		if(w>=wei.get(idx)){
+			take=val.get(idx)+solve(idx-1,w-wei.get(idx),val,wei,dp);
+		}
+		return dp[idx][w]=Math.max(take,not);
+	}
+}
