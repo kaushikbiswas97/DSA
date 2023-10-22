@@ -1,0 +1,21 @@
+class Solution {
+    public int minPathSum(int[][] grid) {
+        int m=grid.length;
+        int n=grid[0].length;
+        int[][] dp=new int[m][n];
+        for(int[] it:dp)
+        {
+            Arrays.fill(it,-1);
+        }
+        return solve(m-1,n-1,grid,dp);
+    }
+    public int solve(int r,int c,int[][] arr,int[][] dp)
+    {
+        if(r<0 || c<0)return (int)1e9+7;
+        if(r==0 && c==0)return arr[0][0];
+        if(dp[r][c]!=-1)return dp[r][c];
+        int up=arr[r][c]+solve(r-1,c,arr,dp);
+        int left=arr[r][c]+solve(r,c-1,arr,dp);
+        return dp[r][c]=Math.min(up,left);
+    }
+}
