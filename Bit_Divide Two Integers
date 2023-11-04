@@ -1,0 +1,23 @@
+public class Solution{
+    public static int divideTwoInteger(int dividend, int divisor) {
+        // Write your code here.
+        if(dividend==Integer.MAX_VALUE && divisor==-1)return Integer.MIN_VALUE;
+        if(dividend==Integer.MIN_VALUE && divisor==-1)return Integer.MAX_VALUE;
+
+        boolean sign=(dividend>=0)==(divisor>=0)?true:false;
+        int res=0;
+        dividend=Math.abs(dividend);
+        divisor=Math.abs(divisor);
+        while(dividend>=divisor)
+        {
+            int pow=0;
+            while(dividend>=(divisor<<1<<pow)){
+                pow++;
+            }
+            res+=(1<<pow);
+            dividend-=divisor<<pow;
+        }
+        return (sign)?res:-res;
+        
+    }
+}
