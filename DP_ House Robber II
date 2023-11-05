@@ -1,0 +1,25 @@
+class Solution {
+    public int rob(int[] nums) {
+        int n=nums.length;
+        if(n==1)return nums[0];
+        int[] dp1=new int[n+1];
+        Arrays.fill(dp1,-1);
+        int skiplast=solve(0,n-1,nums,dp1);
+        Arrays.fill(dp1,-1);
+        int skipfirst=solve(1,n,nums,dp1);
+        return Math.max(skiplast,skipfirst);
+    }
+    public int solve(int i,int n,int[] arr,int[] dp)
+    {
+        if(i==n-1)return arr[i];
+        if(i>=n)return 0;
+        if(dp[i]!=-1)return dp[i];
+        int not=solve(i+1,n,arr,dp);
+        int take=0;
+        if(i<=n-2)
+        {
+            take=arr[i]+solve(i+2,n,arr,dp);
+        }
+        return dp[i]=Math.max(take,not);
+    }
+}
