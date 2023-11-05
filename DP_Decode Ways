@@ -1,0 +1,20 @@
+class Solution {
+    public int numDecodings(String s) {
+        if(s.charAt(0)=='0')return 0;
+        int n=s.length();
+        int[] dp=new int[n];
+        Arrays.fill(dp,-1);
+        return solve(0,n,s,dp);
+    }
+    public int solve(int i,int n,String s,int[] dp)
+    {
+        if(i==n)return 1;
+        if(s.charAt(i)=='0')return 0;
+        if(dp[i]!=-1)return dp[i];
+        int res=solve(i+1,n,s,dp);
+        if(i<n-1 && (s.charAt(i)=='1' || s.charAt(i)=='2' && s.charAt(i+1)<'7')){
+            res+=solve(i+2,n,s,dp);
+        }
+        return dp[i]=res;
+    }
+}
