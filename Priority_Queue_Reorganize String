@@ -1,0 +1,51 @@
+
+class Pair
+{
+    char ch;
+    int val;
+    public Pair(char ch,int val)
+    {
+        this.ch=ch;
+        this.val=val;
+    }
+
+}
+class Solution {
+    public String reorganizeString(String s) {
+        HashMap<Character,Integer> map=new HashMap<>();
+        for(int i=0;i<s.length();i++)
+        {
+            char ch1=s.charAt(i);
+            map.put(ch1,map.getOrDefault(ch1,0)+1);
+        }
+        int maxFreq=0;
+        for(Map.Entry<Character,Integer> it:map.entrySet()){
+            maxFreq=Math.max(maxFreq,it.getValue());
+        }
+        if(maxFreq>(s.length()+1)/2)return "";
+        StringBuilder ans=new StringBuilder();
+
+        PriorityQueue<Pair> pq=new PriorityQueue<>((a,b)->b.val-a.val);
+
+        for(Map.Entry<Character,Integer> it:map.entrySet()){
+            pq.add(new Pair(it.getKey(),it.getValue()));
+        }
+        
+        char prevChar='@';
+        int prevFreq=0;
+
+        while(!pq.isEmpty())
+        {
+            int freq=pq.peek().val;
+            char currChar=pq.peek().ch;
+            pq.poll();
+            ans.append(currChar);
+            if(prevFreq>0){
+                pq.add(new Pair(prevChar,prevFreq));
+            }
+            prevFreq=freq-1;
+            prevChar=currChar;
+        }
+        return ans.toString();
+    }
+}
