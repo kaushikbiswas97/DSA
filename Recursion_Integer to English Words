@@ -1,0 +1,25 @@
+class Solution {
+    private final String[] belowTen = new String[] {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"};
+    private final String[] belowTwenty = new String[] {"Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"};
+    private final String[] belowHundred = new String[] {"", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+
+
+    public String numberToWords(int num) {
+        if(num==0)return "Zero";
+        return solve(num);
+    }
+
+
+    public String solve(int num)
+    {
+        String s=new String();
+        if(num<10)s=belowTen[num];
+        else if(num<20)s=belowTwenty[num-10];
+        else if(num<100)s=belowHundred[num/10]+" "+solve(num%10);
+        else if(num<1000)s=solve(num/100)+" Hundred "+solve(num%100);
+        else if(num<1000000)s=solve(num/1000)+" Thousand "+solve(num%1000);
+        else if(num<1000000000)s=solve(num/1000000)+" Million "+solve(num%1000000);
+        else s=solve(num/1000000000)+" Billion "+solve(num%1000000000);
+        return s.trim();
+    }
+}
