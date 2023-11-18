@@ -1,0 +1,56 @@
+class Solution {
+    public int prod(int[] arr,int idx)
+    {
+        int ans=1;
+        for(int i=0;i<arr.length;i++){
+            if(i!=idx){
+                ans*=arr[i];
+            }
+        }
+        return ans;
+    }
+    public int[] productExceptSelf(int[] nums) {
+        int n=nums.length;
+        int[] ans=new int[n];
+        int prod=1;
+        for(int it:nums)
+        {
+            prod*=it;
+        }
+        int i=0;
+        while(i<n)
+        {
+            if(prod==0)
+            {
+                if(nums[i]!=0){
+                    ans[i]=0;
+                    i++;
+                }
+                else{
+                    ans[i]=prod(nums,i);
+                    i++;
+                }
+            }
+            else{
+                if(prod<0 && nums[i]<0){
+                    ans[i]=Math.abs(prod/nums[i]);
+                    i++;
+                }
+                else if(prod>0 && nums[i]<0){
+                    ans[i]=-(Math.abs(prod/nums[i]));
+                    i++;
+                }
+                else if(prod<0 && nums[i]>0){
+                    ans[i]=-(Math.abs(prod/nums[i]));
+                    i++;
+                }
+                else{
+                    ans[i]=Math.abs(prod/nums[i]);
+                    i++;
+                }
+
+            }
+        }
+        return ans;
+    }
+}
