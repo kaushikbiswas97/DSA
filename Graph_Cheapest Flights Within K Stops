@@ -1,0 +1,70 @@
+class Tuple
+{
+    int dis;
+    int node;
+    int stops;
+    public Tuple(int dis,int node,int stops)
+    {
+        this.dis=dis;
+        this.node=node;
+        this.stops=stops;
+    }
+}
+class Pair
+{
+    int node;
+    int dis;
+    public Pair(int node,int dis)
+    {
+        this.node=node;
+        this.dis=dis;
+    }
+}
+
+class Solution {
+    public int findCheapestPrice(int n, int[][] heights, int src, int dst, int k) {
+        ArrayList<ArrayList<Pair>> adj=new ArrayList<>();
+        for(int i=0;i<n;i++)
+        {
+            adj.add(new ArrayList<>());
+        }
+        for(int i=0;i<heights.length;i++)
+        {
+            adj.get(heights[i][0]).add(new Pair(heights[i][1],heights[i][2]));
+        }
+        Queue<Tuple> q=new LinkedList<>();
+        int[] disArr=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            disArr[i]=(int)1e9;
+        }
+        disArr[src]=0;
+        q.add(new Tuple(0,src,0));
+        while(!q.isEmpty())
+        {
+            Tuple curr=q.poll();
+            int price=curr.dis;
+            int node=curr.node;
+            int stop=curr.stops;
+            if(stop>k)continue;
+
+            for(Pair it:adj.get(node))
+            {
+                int newnode=it.node;
+                int dist=it.dis;
+                if(dist+price<disArr[newnode] && stop<=k){
+                    disArr[newnode]=dist+price;
+                    q.add(new Tuple(dist+price,newnode,stop+1));
+                }
+            }
+        }
+        for(int i=0;i<n;i++)
+        {
+            if(disArr[i]==(int)1e9)
+            {
+                disArr[i]=-1;
+            }
+        }
+        return disArr[dst];
+    }
+}
